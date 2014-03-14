@@ -1,0 +1,19 @@
+SDL 2.0 Textures
+3/13/2014
+
+Wraps SDL Textures into a more streamlined Texture class for easy loading and rendering.
+
+Build requirements
+ - SDL 2.0 (http://libsdl.org/download-2.0.php)
+ - SDL Image 2.0 (https://www.libsdl.org/projects/SDL_image/)
+
+Notes:
+ - You probably want to use and build against 32-bit build of SDL
+ - These project files assume SDL and SDL_image are located inside of "SDL2" folder and part of your search paths (SDL2/SDL.h)
+ - Build files using a compatible c++11 compiler
+
+This tutorial and code are property of:
+Tim Jones
+SDLTutorials.com
+
+You are free to use this code and any included files in your projects (commercial and non-commercial), as long as you credit SDLTutorials.com and the author.
