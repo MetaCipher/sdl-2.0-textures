@@ -1,7 +1,7 @@
 SDL 2.0 Textures
-3/13/2014
+3/18/2014
 
-Wraps SDL Textures into a more streamlined Texture class for easy loading and rendering.
+Wraps SDL Textures into a more streamlined Texture class for easy loading and rendering. Also includes TextureBank class for loading multiple textures at once, and a FileManager class for reading directories (with iOS support).
 
 Build requirements
  - SDL 2.0 (http://libsdl.org/download-2.0.php)
