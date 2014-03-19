@@ -14,44 +14,46 @@ void App::OnEvent(SDL_Event* Event) {
 
 //------------------------------------------------------------------------------
 bool App::Init() {
-    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-    	Log("Unable to Init SDL: %s", SDL_GetError());
-    	return false;
-    }
+	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+		Log("Unable to Init SDL: %s", SDL_GetError());
+		return false;
+	}
 
-    if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-        Log("Unable to Init hinting: %s", SDL_GetError());
-    }
+	if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+		Log("Unable to Init hinting: %s", SDL_GetError());
+	}
 
-    if((Window = SDL_CreateWindow(
-    	"My SDL Game",
-    	SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    	WindowWidth, WindowHeight, SDL_WINDOW_SHOWN)
-    ) == NULL) {
-    	Log("Unable to create SDL Window: %s", SDL_GetError());
-    	return false;
-    }
+	if((Window = SDL_CreateWindow(
+		"My SDL Game",
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		WindowWidth, WindowHeight, SDL_WINDOW_SHOWN)
+	) == NULL) {
+		Log("Unable to create SDL Window: %s", SDL_GetError());
+		return false;
+	}
 
-    PrimarySurface = SDL_GetWindowSurface(Window);
+	PrimarySurface = SDL_GetWindowSurface(Window);
 
-    if((Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED)) == NULL) {
-        Log("Unable to create renderer");
-        return false;
-    }
+	if((Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED)) == NULL) {
+	    Log("Unable to create renderer");
+	    return false;
+	}
 
-    SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(Renderer, 0x00, 0x00, 0x00, 0xFF);
 
-    // Initialize image loading for PNGs
-    if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
-    	Log("Unable to init SDL_image: %s", IMG_GetError());
-    	return false;
-    }
+	// Initialize image loading for PNGs
+	if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+		Log("Unable to init SDL_image: %s", IMG_GetError());
+		return false;
+	}
 
-    // Load our test texture
-    TestTexture = new Texture();
-    if(TestTexture->Load(Renderer, "./Textures/Test.png") == false) return false;
+	// Load all of our Textures (see TextureBank class for expected folder)
+	if(TextureBank::Init() == false) {
+		Log("Unable to init TextureBank");
+		return false;
+	}
 
-    return true;
+	return true;
 }
 
 //------------------------------------------------------------------------------
@@ -60,19 +62,16 @@ void App::Loop() {
 
 //------------------------------------------------------------------------------
 void App::Render() {
-    SDL_RenderClear(Renderer);
+	SDL_RenderClear(Renderer);
 
-    TestTexture->Render(0, 0);
+	TextureBank::Get("Test")->Render(0, 0); // You should really check your pointers
 
 	SDL_RenderPresent(Renderer);
 }
 
 //------------------------------------------------------------------------------
 void App::Cleanup() {
-	if(TestTexture) {
-		delete TestTexture;
-		TestTexture = NULL;
-	}
+	TextureBank::Cleanup();
 
 	if(Renderer) {
 		SDL_DestroyRenderer(Renderer);
@@ -85,7 +84,7 @@ void App::Cleanup() {
 	}
 
 	IMG_Quit();
-    SDL_Quit();
+	SDL_Quit();
 }
 
 //------------------------------------------------------------------------------
@@ -111,6 +110,9 @@ int App::Execute(int argc, char* argv[]) {
 
 	return 1;
 }
+
+//==============================================================================
+SDL_Renderer* App::GetRenderer() { return Renderer; }
 
 //==============================================================================
 App* App::GetInstance() { return &App::Instance; }

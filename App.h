@@ -3,16 +3,16 @@
 	Primary application class
 
 	3/11/2014
-    SDLTutorials.com
-    Tim Jones
+	SDLTutorials.com
+	Tim Jones
 */
 //==============================================================================
-#include <SDL2/SDL.h>
-
-#include "Texture.h"
-
 #ifndef __APP_H__
 	#define __APP_H__
+
+#include <SDL2/SDL.h>
+
+#include "TextureBank.h"
 
 class App {
 	private:
@@ -49,6 +49,9 @@ class App {
 
 	public:
 		int Execute(int argc, char* argv[]);
+
+	public:
+		SDL_Renderer* GetRenderer();
 
 	public:
 		static App* GetInstance();

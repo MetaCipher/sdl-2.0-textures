@@ -29,9 +29,15 @@
 		</Linker>
 		<Unit filename="App.cpp" />
 		<Unit filename="App.h" />
+		<Unit filename="FileManager.cpp" />
+		<Unit filename="FileManager.h" />
 		<Unit filename="Log.h" />
+		<Unit filename="Stringify.cpp" />
+		<Unit filename="Stringify.h" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />
+		<Unit filename="TextureBank.cpp" />
+		<Unit filename="TextureBank.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

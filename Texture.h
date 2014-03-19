@@ -7,13 +7,13 @@
     Tim Jones
 */
 //==============================================================================
+#ifndef __TEXTURE_H__
+	#define __TEXTURE_H__
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 #include <string>
-
-#ifndef __TEXTURE_H__
-	#define __TEXTURE_H__
 
 class Texture {
 	private:
